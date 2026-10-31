@@ -1,33 +1,76 @@
 # Customer Churn Prediction
 
-This project uses machine learning to predict whether a telecommunications customer will leave the service. It includes a Jupyter notebook with data exploration, preprocessing, model tuning, and evaluation.
+A machine learning project that predicts whether a telecom customer will leave the service (churn). The notebook covers data exploration, preprocessing, model training, tuning and evaluation.
 
-## Data
+## Dataset
 
-The included `customer_churn_data.csv` contains 7,043 customer records and 21 columns. It describes customer demographics, subscribed services, contract and payment details, monthly and total charges, and the `Churn` target. Eleven `TotalCharges` values are missing and are handled by median imputation in the notebook. No dataset download link or formal dataset citation was included with
-the supplied files.
+`customer_churn_data.csv` has 7,043 customer records and 21 columns:
+
+- Customer demographics
+- Subscribed services
+- Contract and payment details
+- Monthly and total charges
+- `Churn` (the target I predict)
+
+Eleven `TotalCharges` values were missing, so I filled them with the median in the notebook.
+
+## What I did
+
+1. Explored the data (distributions, churn rate, relationships between features)
+2. Cleaned and preprocessed it (missing values, encoding categorical columns)
+3. Split the data 80/20 (stratified) into train and test sets
+4. Trained and tuned three models: Logistic Regression, Random Forest and K-Nearest Neighbors
+5. Compared them using accuracy, balanced accuracy, precision, recall, F1, AUROC and confusion matrices
 
 ## Results
 
-The notebook uses a stratified 80/20 train/test split. On a full run in the Python 3.14 environment, the held-out test metrics were:
+Held-out test set results:
 
 | Model | Accuracy | Balanced accuracy | Precision (churn) | Recall (churn) | F1 (churn) | AUROC |
-|---|---:|---:|---:|---:|---:|---:|
+|---|---|---|---|---|---|---|
 | Logistic Regression | 0.804 | 0.725 | 0.654 | 0.556 | 0.601 | 0.841 |
 | Random Forest | 0.803 | 0.712 | 0.668 | 0.516 | 0.582 | 0.841 |
 | K-Nearest Neighbors | 0.790 | 0.661 | 0.686 | 0.385 | 0.493 | 0.801 |
 
-At the default classification threshold, Logistic Regression found the most churners (recall 0.556); its confusion matrix had 166 false negatives and 110 false positives. The notebook also displays specificity, balanced accuracy, and confusion matrices so the models can be compared beyond accuracy alone. Metrics are rounded to three decimal places and may vary across library versions.
+**Takeaway:** Logistic Regression found the most churners (recall 0.556), with 166 false negatives and 110 false positives. Accuracy alone can be misleading here because most customers do not churn, so I also looked at balanced accuracy, recall and the confusion matrices. Exact numbers may vary slightly with library versions.
 
-## Project source
+## Tech stack
 
-The supplied project was nested in a folder named `Customer-Churn-Prediction-main`, which suggests it may have come from a downloaded GitHub repository. The supplied files do not identify the original repository, author, or a tutorial, so the exact source cannot be verified or attributed here.
+- Python
+- pandas, NumPy
+- scikit-learn
+- feature-engine
+- matplotlib, seaborn
+- Jupyter Notebook
 
-## Run the notebook
+## How to run
 
-Install the notebook dependencies and run it from the repository root so it can find the CSV:
+1. Clone the repo:
+   ```bash
+   git clone https://github.com/vivekreddy-25/customer-churn-prediction.git
+   cd customer-churn-prediction
+   ```
+2. Install the dependencies:
+   ```bash
+   pip install pandas numpy scikit-learn matplotlib seaborn feature-engine jupyter
+   ```
+3. Start Jupyter from the repo folder (so the notebook can find the CSV) and open the notebook:
+   ```bash
+   jupyter notebook Customer_Churn_Prediction.ipynb
+   ```
 
-```bash
-pip install pandas numpy scikit-learn matplotlib seaborn feature-engine jupyter
-jupyter notebook Customer_Churn_Prediction.ipynb
-```
+## Project files
+
+- `Customer_Churn_Prediction.ipynb` - the full analysis and modelling notebook
+- `customer_churn_data.csv` - the dataset
+
+## What I could improve
+
+- Try other models such as XGBoost
+- Tune the classification threshold to catch more churners
+- Handle the class imbalance (for example with class weights)
+
+## Author
+
+Vivek Macharla - M.Sc. AI & Big Data, SRH Berlin
+[GitHub](https://github.com/vivekreddy-25) | [LinkedIn](https://www.linkedin.com/in/vivek-reddy-macharla-93a5b5282)
